@@ -1,0 +1,49 @@
+zookeeper:
+  image: wurstmeister/zookeeper
+  ports:
+    - "32772:2181"
+kafka:
+  image: wurstmeister/kafka:latest
+  ports:
+    - "9092"
+  links:
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
+    KAFKA_CREATE_TOPICS: "model:1:1,route:1:1,track:1:1,identify:1:1"
+    KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+kafka-manager:
+  image: sheepkiller/kafka-manager
+  ports:
+    - "9000:9000"
+  links:
+    - zookeeper:zk
+  environment:
+    ZK_HOSTS: zk:2181
+
+nginx:
+    image: yetta/nginx
+    links:
+        - node1:node1
+        - node2:node2
+        - node3:node3
+    ports:
+        - "80:80"
+
+node1:
+    image: yetta/server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
+node2:
+    image: yetta/server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
+node3:
+    image: yetta/server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
