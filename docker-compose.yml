@@ -33,20 +33,20 @@ nginx:
         - "80:80"
 
 node1:
-    image: yetta/server
+    image: yetta/graphql-server
     volumes:
-        - ~/env/server/env.dev.list:/app/env.dev.list
-        - ~/env/server/firebaseDev.json:/app/firebaseDev.json
+        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
+        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
 node2:
-    image: yetta/server
+    image: yetta/graphql-server
     volumes:
-        - ~/env/server/env.dev.list:/app/env.dev.list
-        - ~/env/server/firebaseDev.json:/app/firebaseDev.json
+        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
+        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
 node3:
-    image: yetta/server
+    image: yetta/graphql-server
     volumes:
-        - ~/env/server/env.dev.list:/app/env.dev.list
-        - ~/env/server/firebaseDev.json:/app/firebaseDev.json
+        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
+        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
 
 admin:
     image: yetta/admin-console
