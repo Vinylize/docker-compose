@@ -54,4 +54,4 @@ admin:
         - ~/env/admin-console/development.js:/app/server/config/environment/development.js
         - ~/env/admin-console/production.js:/app/server/config/environment/production.js
     ports:
-        - "80:80"
+        - "3000:3000"
