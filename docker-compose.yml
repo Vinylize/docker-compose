@@ -26,32 +26,30 @@
 nginx:
     image: yetta/nginx
     links:
-        - node1:node1
-        - node2:node2
-        - node3:node3
+        - graphql0:graphql0
+        - graphql1:graphql1
+        - graphql2:graphql2
+        - admin0:admin0
     ports:
         - "80:80"
+graphql0:
+    image: yetta/graphql-server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
+graphql1:
+    image: yetta/graphql-server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
+graphql2:
+    image: yetta/graphql-server
+    volumes:
+      - ~/env/env.dev.list:/app/env.dev.list
+      - ~/env/firebaseDev.json:/app/firebaseDev.json
 
-node1:
-    image: yetta/graphql-server
-    volumes:
-        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-node2:
-    image: yetta/graphql-server
-    volumes:
-        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-node3:
-    image: yetta/graphql-server
-    volumes:
-        - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-        - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-
-admin:
+admin0:
     image: yetta/admin-console
     volumes:
         - ~/env/admin-console/development.js:/app/server/config/environment/development.js
         - ~/env/admin-console/production.js:/app/server/config/environment/production.js
-    ports:
-        - "3000:3000"
