@@ -22,34 +22,26 @@
 #    - zookeeper:zk
 #  environment:
 #    ZK_HOSTS: zk:2181
-
-nginx:
-    image: yetta/nginx
-    links:
-        - graphql0:graphql0
-        - graphql1:graphql1
-        - graphql2:graphql2
-        - admin0:admin0
+#nginx:
+#    image: yetta/nginx
+#    links:
+#        - graphql0:graphql0
+#        - graphql1:graphql1
+#        - graphql2:graphql2
+#        - admin0:admin0
+#    ports:
+#        - "80:80"
+graphql-server:
+    image: yetta/graphql-server
+    volumes:
+      - ~/env/graphql-server/env.dev.list:/app/env.dev.list
+      - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
     ports:
-        - "80:80"
-graphql0:
-    image: yetta/graphql-server
-    volumes:
-      - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-      - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-graphql1:
-    image: yetta/graphql-server
-    volumes:
-      - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-      - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-graphql2:
-    image: yetta/graphql-server
-    volumes:
-      - ~/env/graphql-server/env.dev.list:/app/env.dev.list
-      - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
-
-admin0:
+      - "5002:5002"
+admin-console:
     image: yetta/admin-console
     volumes:
-        - ~/env/admin-console/development.js:/app/server/config/environment/development.js
-        - ~/env/admin-console/production.js:/app/server/config/environment/production.js
+      - ~/env/admin-console/development.js:/app/server/config/environment/development.js
+      - ~/env/admin-console/production.js:/app/server/config/environment/production.js
+    ports:
+      - "3000:3000"
