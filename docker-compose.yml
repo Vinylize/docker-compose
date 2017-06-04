@@ -38,6 +38,13 @@ graphql-server:
       - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
     ports:
       - "5002:5002"
+
+push-service:
+    image: yetta/push-service
+    volumes:
+      - ~/env/graphql-server/env.dev.list:/app/env.dev.list
+      - ~/env/graphql-server/firebaseDev.json:/app/firebaseDev.json
+
 admin-console:
     image: yetta/admin-console
     volumes:
